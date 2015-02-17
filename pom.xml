@@ -3,4 +3,11 @@
   <groupId>org.bihe.semantic</groupId>
   <artifactId>semantic-project</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.sparkjava</groupId>
+  		<artifactId>spark-core</artifactId>
+  		<version>2.1</version>
+  	</dependency>
+  </dependencies>
 </project>
