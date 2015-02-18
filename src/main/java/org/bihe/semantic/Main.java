@@ -1,3 +1,4 @@
+package org.bihe.semantic;
 import static spark.Spark.*;
 
 public class Main {
