@@ -1,50 +1,64 @@
 package org.bihe.semantic.model;
+/**
+ * @author Mozhde
+ *
+ */
+import java.util.ArrayList;
 
 public class Course {
-	private int id;
+	
+	
+	private long id;
 	private String shortname;
-	private Instructor[] instructors;
-	private Cathegory[] cathegories;
-	private Session[] sessions;
+	private String courseName;
 
-	public int getId() {
+	private ArrayList<Instructor> instructors= new ArrayList<Instructor>();
+	private ArrayList<Category> categories = new ArrayList<Category>();
+	private ArrayList<Session> sessions = new ArrayList<Session>();
+	private ArrayList<University> universities= new ArrayList<University>();
+	
+	public long getId() {
 		return id;
 	}
-
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
-
 	public String getShortname() {
 		return shortname;
 	}
-
 	public void setShortname(String shortname) {
 		this.shortname = shortname;
 	}
-
-	public Instructor[] getInstructors() {
+	public String getCourseName() {
+		return courseName;
+	}
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+	public ArrayList<Instructor> getInstructors() {
 		return instructors;
 	}
-
-	public void setInstructors(Instructor[] instructors) {
+	public void setInstructors(ArrayList<Instructor> instructors) {
 		this.instructors = instructors;
 	}
-
-	public Cathegory[] getCathegories() {
-		return cathegories;
+	public ArrayList<Category> getCategories() {
+		return categories;
 	}
-
-	public void setCathegories(Cathegory[] cathegories) {
-		this.cathegories = cathegories;
+	public void setCategories(ArrayList<Category> categories) {
+		this.categories = categories;
 	}
-
-	public Session[] getSessions() {
+	public ArrayList<Session> getSessions() {
 		return sessions;
 	}
-
-	public void setSessions(Session[] sessions) {
+	public void setSessions(ArrayList<Session> sessions) {
 		this.sessions = sessions;
 	}
+	public ArrayList<University> getUniversities() {
+		return universities;
+	}
+	public void setUniversities(ArrayList<University> universities) {
+		this.universities = universities;
+	}
+
 
 }

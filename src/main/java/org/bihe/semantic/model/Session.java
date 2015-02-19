@@ -1,14 +1,14 @@
 package org.bihe.semantic.model;
 
 public class Session {
-	private int id;
+	private long id;
 	private String homepage;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

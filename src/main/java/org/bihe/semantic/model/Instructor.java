@@ -1,15 +1,15 @@
 package org.bihe.semantic.model;
 
 public class Instructor {
-	private int id;
+	private long id;
 	private String firstname;
 	private String lastname;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
