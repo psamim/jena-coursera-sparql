@@ -115,8 +115,8 @@ public class CourseraJSonParser {
 		ArrayList<Course> courseDetailLists = new ArrayList<Course>();
 
 		for (int i = 0; i < courseLists.size(); i++) {
-			if (courseLists.get(i).getCourseName().contains(courseName)
-					|| courseLists.get(i).getShortName().contains(courseName)) {
+			if (courseLists.get(i).getCourseName().toLowerCase().contains(courseName.toLowerCase())
+					|| courseLists.get(i).getShortName().toLowerCase().contains(courseName.toLowerCase())) {
 				Course courseDetail = new Course();
 				courseDetail.setId(courseLists.get(i).getCourseId());
 				courseDetail.setCourseName(courseLists.get(i).getCourseName());
