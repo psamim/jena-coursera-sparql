@@ -1,5 +1,6 @@
 package org.bihe.semantic.jsonParser;
 
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
@@ -204,7 +205,7 @@ public class CourseraJSonParser {
 
 		JSONParser parser = new JSONParser();
 		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(path
-				+ "\\courseraJsonFiles\\courseInfo.json"));
+				+  File.separator + "courseraJsonFiles" + File.separator + "courseInfo.json"));
 
 		ArrayList<CourseInfo> courseLists = new ArrayList<CourseInfo>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
@@ -247,7 +248,7 @@ public class CourseraJSonParser {
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(path
-				+ "\\courseraJsonFiles\\categories.json"));
+				+  File.separator + "courseraJsonFiles" + File.separator + "categories.json"));
 
 		ArrayList<Category> categoryLists = new ArrayList<Category>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
@@ -273,7 +274,7 @@ public class CourseraJSonParser {
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(path
-				+ "\\courseraJsonFiles\\instructors.json"));
+				+  File.separator + "courseraJsonFiles" + File.separator + "instructors.json"));
 
 		ArrayList<Instructor> instructorLists = new ArrayList<Instructor>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
@@ -298,7 +299,7 @@ public class CourseraJSonParser {
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(path
-				+ "\\courseraJsonFiles\\universities.json"));
+				+  File.separator + "courseraJsonFiles" + File.separator + "universities.json"));
 
 		ArrayList<University> universityLists = new ArrayList<University>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
@@ -323,7 +324,7 @@ public class CourseraJSonParser {
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(
-				path + "\\courseraJsonFiles\\sessions.json"));
+				path +  File.separator + "courseraJsonFiles" + File.separator + "sessions.json"));
 
 		ArrayList<Session> sessionLists = new ArrayList<Session>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
