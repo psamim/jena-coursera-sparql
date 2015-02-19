@@ -17,8 +17,10 @@ import org.json.simple.parser.JSONParser;
  * @author Mozhde
  *
  */
-public class JSon {
+public class CourseraJSonParser {
 
+	static String path="C:\\Users\\Mozhde\\git\\semantic";
+	
 	static ArrayList<CourseInfo> courseLists = new ArrayList<CourseInfo>();
 	static ArrayList<Category> categoryLists = new ArrayList<Category>();
 	static ArrayList<Instructor> instructorLists = new ArrayList<Instructor>();
@@ -27,15 +29,15 @@ public class JSon {
 
 	public static void main(String[] args) throws Exception {
 
-		courseLists = new JSon().readCourseInfo();
+		courseLists = new CourseraJSonParser().readCourseInfo();
 
-		categoryLists = new JSon().readCategories();
+		categoryLists = new CourseraJSonParser().readCategories();
 
-		instructorLists = new JSon().readInstructors();
+		instructorLists = new CourseraJSonParser().readInstructors();
 
-		universityLists = new JSon().readUniversities();
+		universityLists = new CourseraJSonParser().readUniversities();
 
-		sessionLists = new JSon().readSessions();
+		sessionLists = new CourseraJSonParser().readSessions();
 
 		ArrayList<Course> courseDetails = getCourseDetail("research");
 
@@ -180,8 +182,7 @@ public class JSon {
 	public ArrayList<CourseInfo> readCourseInfo() throws Exception {
 
 		JSONParser parser = new JSONParser();
-		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(
-				"d:\\courseInfo.json"));
+		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(path + "\\courseraJsonFiles\\courseInfo.json"));
 
 		ArrayList<CourseInfo> courseLists = new ArrayList<CourseInfo>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
@@ -223,8 +224,7 @@ public class JSon {
 	public ArrayList<Category> readCategories() throws Exception {
 		JSONParser parser = new JSONParser();
 
-		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(
-				"d:\\categories.json"));
+		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(path + "\\courseraJsonFiles\\categories.json"));
 
 		ArrayList<Category> categoryLists = new ArrayList<Category>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
@@ -250,7 +250,7 @@ public class JSon {
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(
-				"d:\\instructors.json"));
+				path + "\\courseraJsonFiles\\instructors.json"));
 
 		ArrayList<Instructor> instructorLists = new ArrayList<Instructor>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
@@ -275,7 +275,7 @@ public class JSon {
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(
-				"d:\\universities.json"));
+				path + "\\courseraJsonFiles\\universities.json"));
 
 		ArrayList<University> universityLists = new ArrayList<University>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
@@ -301,7 +301,7 @@ public class JSon {
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(
-				"d:\\sessions.json"));
+				path + "\\courseraJsonFiles\\sessions.json"));
 
 		ArrayList<Session> sessionLists = new ArrayList<Session>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
