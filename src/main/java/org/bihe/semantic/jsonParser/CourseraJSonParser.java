@@ -20,7 +20,7 @@ import org.json.simple.parser.JSONParser;
 public class CourseraJSonParser {
 
 
-	static String path = "C:\\Users\\Mozhde\\git\\semantic";
+	static String path = ".";
 
 	static ArrayList<CourseInfo> courseLists = new ArrayList<CourseInfo>();
 	static ArrayList<Category> categoryLists = new ArrayList<Category>();
