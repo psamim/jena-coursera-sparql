@@ -5,7 +5,7 @@ public class Course {
 	private String shortname;
 	private Instructor[] instructors;
 	private Cathegory[] cathegories;
-	private Session[] session;
+	private Session[] sessions;
 
 	public int getId() {
 		return id;
@@ -39,12 +39,12 @@ public class Course {
 		this.cathegories = cathegories;
 	}
 
-	public Session[] getSession() {
-		return session;
+	public Session[] getSessions() {
+		return sessions;
 	}
 
-	public void setSession(Session[] session) {
-		this.session = session;
+	public void setSessions(Session[] sessions) {
+		this.sessions = sessions;
 	}
 
 }
