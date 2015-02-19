@@ -19,28 +19,45 @@ import org.json.simple.parser.JSONParser;
  */
 public class CourseraJSonParser {
 
-	static String path="C:\\Users\\Mozhde\\git\\semantic";
-	
+	static String path = "C:\\Users\\Mozhde\\git\\semantic";
+
 	static ArrayList<CourseInfo> courseLists = new ArrayList<CourseInfo>();
 	static ArrayList<Category> categoryLists = new ArrayList<Category>();
 	static ArrayList<Instructor> instructorLists = new ArrayList<Instructor>();
 	static ArrayList<University> universityLists = new ArrayList<University>();
 	static ArrayList<Session> sessionLists = new ArrayList<Session>();
 
-	public static void main(String[] args) throws Exception {
+	public CourseraJSonParser() {
+		try {
+			courseLists = readCourseInfo();
 
-		courseLists = new CourseraJSonParser().readCourseInfo();
+			categoryLists = readCategories();
 
-		categoryLists = new CourseraJSonParser().readCategories();
+			instructorLists = readInstructors();
 
-		instructorLists = new CourseraJSonParser().readInstructors();
+			universityLists = readUniversities();
 
-		universityLists = new CourseraJSonParser().readUniversities();
+			sessionLists = readSessions();
 
-		sessionLists = new CourseraJSonParser().readSessions();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-		ArrayList<Course> courseDetails = getCourseDetail("research");
+	/*
+	 * public static void main(String[] args) throws Exception {
+	 * 
+	 * ArrayList<Course> courseDetails = getCourseDetail("research");
+	 * printList(courseDetails);
+	 * 
+	 * }
+	 */
 
+	public static void printList(ArrayList<Course> courseDetails) {
+		if (courseDetails.size() == 0) {
+			System.out.println("Nothing has been found in Coursera !");
+		}
 		for (int i = 0; i < courseDetails.size(); i++) {
 			System.out.println("CourseId: " + courseDetails.get(i).getId());
 			System.out.println("CourseName: "
@@ -108,14 +125,15 @@ public class CourseraJSonParser {
 						.getCategories();
 				ArrayList<Category> categoriesName = new ArrayList<Category>();
 
-				for (int cat = 0; cat < (int) curr_categories.size(); cat++) {
-					for (int catlist = 0; catlist < categoryLists.size(); catlist++) {
-						if (categoryLists.get(catlist).getId() == curr_categories
-								.get(cat)) {
-							categoriesName.add(categoryLists.get(catlist));
+				if (curr_categories != null)
+					for (int cat = 0; cat < (int) curr_categories.size(); cat++) {
+						for (int catlist = 0; catlist < categoryLists.size(); catlist++) {
+							if (categoryLists.get(catlist).getId() == curr_categories
+									.get(cat)) {
+								categoriesName.add(categoryLists.get(catlist));
+							}
 						}
 					}
-				}
 				courseDetail.setCategories(categoriesName);
 
 				// //////////Universities/////////////////////////////
@@ -123,15 +141,17 @@ public class CourseraJSonParser {
 						.getUniversities();
 				ArrayList<University> universitiesName = new ArrayList<University>();
 
-				for (int uni = 0; uni < (int) curr_universities.size(); uni++) {
-					for (int unilist = 0; unilist < universityLists.size(); unilist++) {
-						if (universityLists.get(unilist).getId() == curr_universities
-								.get(uni)) {
-							universitiesName.add(universityLists.get(unilist));
+				if (curr_universities != null)
+					for (int uni = 0; uni < (int) curr_universities.size(); uni++) {
+						for (int unilist = 0; unilist < universityLists.size(); unilist++) {
+							if (universityLists.get(unilist).getId() == curr_universities
+									.get(uni)) {
+								universitiesName.add(universityLists
+										.get(unilist));
+							}
 						}
-					}
 
-				}
+					}
 				courseDetail.setUniversities(universitiesName);
 
 				// //////////instructors/////////////////////////////
@@ -182,7 +202,8 @@ public class CourseraJSonParser {
 	public ArrayList<CourseInfo> readCourseInfo() throws Exception {
 
 		JSONParser parser = new JSONParser();
-		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(path + "\\courseraJsonFiles\\courseInfo.json"));
+		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(path
+				+ "\\courseraJsonFiles\\courseInfo.json"));
 
 		ArrayList<CourseInfo> courseLists = new ArrayList<CourseInfo>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
@@ -224,7 +245,8 @@ public class CourseraJSonParser {
 	public ArrayList<Category> readCategories() throws Exception {
 		JSONParser parser = new JSONParser();
 
-		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(path + "\\courseraJsonFiles\\categories.json"));
+		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(path
+				+ "\\courseraJsonFiles\\categories.json"));
 
 		ArrayList<Category> categoryLists = new ArrayList<Category>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
@@ -249,8 +271,8 @@ public class CourseraJSonParser {
 	public ArrayList<Instructor> readInstructors() throws Exception {
 		JSONParser parser = new JSONParser();
 
-		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(
-				path + "\\courseraJsonFiles\\instructors.json"));
+		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(path
+				+ "\\courseraJsonFiles\\instructors.json"));
 
 		ArrayList<Instructor> instructorLists = new ArrayList<Instructor>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
@@ -274,8 +296,8 @@ public class CourseraJSonParser {
 	public ArrayList<University> readUniversities() throws Exception {
 		JSONParser parser = new JSONParser();
 
-		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(
-				path + "\\courseraJsonFiles\\universities.json"));
+		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(path
+				+ "\\courseraJsonFiles\\universities.json"));
 
 		ArrayList<University> universityLists = new ArrayList<University>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
@@ -300,8 +322,8 @@ public class CourseraJSonParser {
 	public ArrayList<Session> readSessions() throws Exception {
 		JSONParser parser = new JSONParser();
 
-		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(
-				path + "\\courseraJsonFiles\\sessions.json"));
+		JSONArray jsonObjectArr = (JSONArray) parser.parse(new FileReader(path
+				+ "\\courseraJsonFiles\\sessions.json"));
 
 		ArrayList<Session> sessionLists = new ArrayList<Session>();
 		for (int i = 0; i < jsonObjectArr.size(); i++) {
