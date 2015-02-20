@@ -17,22 +17,6 @@ public class Main {
 	public static final String TEMPLATE = "template.ftl";
 
 	public static void main(String[] args) {
-
-		// Added by Mozhde
-		try {
-			CourseraJSonParser coursera = new CourseraJSonParser();
-			// pass the course that user wants to find it in Coursera
-			String searchedCourse="big";
-			ArrayList<Course> courseDetails = coursera
-					.getCourseDetail(searchedCourse);
-			coursera.printList(courseDetails);
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// END Mozhde
-
 		staticFileLocation("/public"); // Static files
 
 		get("/search", (rq, rs) -> {
@@ -48,6 +32,7 @@ public class Main {
 			Search search = new Search();
 			search.setCategory(rq.queryParams("category"));
 			search.setName(rq.queryParams("name"));
+			search.getResults();
 
 			return new ModelAndView(attributes, TEMPLATE);
 		}, new FreeMarkerEngine());
