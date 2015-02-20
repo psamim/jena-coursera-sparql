@@ -6,6 +6,26 @@ import com.hp.hpl.jena.rdf.model.*;
 public class Modeling {
 	private Model model;
 
+	public static void main(String[] args) {
+
+//		Category category = new Category();
+//		category.setCategoryName("Cat name");
+//		category.setId(1);
+//		category.setShortname("Short cat name");
+
+		Course course = new Course();
+		course.setCourseName("Test Course");
+		course.setId(1);
+		course.setShortname("Short test name");
+		
+		Course[] courses = {course};
+		Modeling modeling = new Modeling();
+		modeling.createModel(courses);
+		
+		modeling.writeModel();
+		
+	}
+
 	public void addStatement(String s, String p, String o) {
 		Resource subject = model.createResource(s);
 		Property predicate = model.createProperty(p);
@@ -46,7 +66,7 @@ public class Modeling {
 			addLiteralStatement(co + course.getShortname(), co + "has",
 					course.getId());
 			
-			bag.add()
+//			bag.add()
 		}
 
 	}
