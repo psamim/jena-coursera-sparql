@@ -46,7 +46,7 @@ public class Modeling {
 			addLiteralStatement(co + course.getShortname(), co + "has",
 					course.getId());
 			
-			bag.add()
+//			bag.add()
 		}
 
 	}
