@@ -1,14 +1,8 @@
 package org.bihe.semantic.ui;
 
 import static spark.Spark.*;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.bihe.semantic.jsonParser.CourseraJSonParser;
-import org.bihe.semantic.model.Course;
-
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 

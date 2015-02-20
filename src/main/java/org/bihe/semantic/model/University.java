@@ -27,6 +27,4 @@ public class University {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
 }

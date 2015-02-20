@@ -1,17 +1,14 @@
 package org.bihe.semantic.model;
+import java.util.ArrayList;
+
 /**
  * @author Mozhde
  *
  */
-import java.util.ArrayList;
-
 public class Course {
-	
-	
 	private long id;
 	private String shortname;
 	private String courseName;
-
 	private ArrayList<Instructor> instructors= new ArrayList<Instructor>();
 	private ArrayList<Category> categories = new ArrayList<Category>();
 	private ArrayList<Session> sessions = new ArrayList<Session>();
@@ -59,6 +56,4 @@ public class Course {
 	public void setUniversities(ArrayList<University> universities) {
 		this.universities = universities;
 	}
-
-
 }

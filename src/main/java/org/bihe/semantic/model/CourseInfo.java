@@ -1,13 +1,12 @@
 package org.bihe.semantic.model;
 
+import java.util.ArrayList;
+
 /**
  * @author Mozhde
  *
  */
-import java.util.ArrayList;
-
 public class CourseInfo {
-
 	long courseId;
 	String shortName;
 	String courseName;
@@ -89,5 +88,4 @@ public class CourseInfo {
 	public void setInstructors(ArrayList<Long> instructors) {
 		this.instructors = instructors;
 	}
-
 }
