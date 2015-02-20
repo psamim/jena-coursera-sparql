@@ -3,6 +3,7 @@ package org.bihe.semantic.model;
 import java.util.ArrayList;
 
 import com.hp.hpl.jena.rdf.model.*;
+import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.VCARD;
 
 /**
@@ -14,7 +15,7 @@ public class Modeling {
 	private Bag bag;
 
 	public static void main(String[] args) {
-
+		// data for test
 		// Category category = new Category();
 		// category.setCategoryName("Cat name");
 		// category.setId(1);
@@ -57,14 +58,6 @@ public class Modeling {
 
 	}
 
-	public void addStatement(String s, String p, String o) {
-		Resource subject = model.createResource(s);
-		Property predicate = model.createProperty(p);
-		RDFNode object = model.createResource(o);
-		Statement stmt = model.createStatement(subject, predicate, object);
-		model.add(stmt);
-	}
-
 	public void addToModel(Resource s, String p, Object o) {
 		// Resource subject = model.createResource(s);
 		Property predicate = createProperty(p);
@@ -75,21 +68,12 @@ public class Modeling {
 	public void createModel(Course[] courses) {
 		model = ModelFactory.createDefaultModel();
 		bag = model.createBag();
-		// addStatement(Constant.COURSE_URI, Constant.COURSE_URI + "has",
-		// Constant.SESSION_URI);
-		// addStatement(Constant.COURSE_URI, Constant.COURSE_URI + "taughtby",
-		// Constant.INSTRUCTOR_URI);
-		// addStatement(Constant.COURSE_URI,
-		// Constant.COURSE_URI + "belongsto", Constant.CATHEGORY_URI);
-		// addStatement(Constant.COURSE_URI, Constant.COURSE_URI + "taughtin",
-		// Constant.CATHEGORY_URI);
 
 		for (Course course : courses) {
 			Resource courseresouce = model.createResource(Constant.COURSE_URI
 					+ course.getShortname());
 
 			courseresouce = addLiteralProperties(courseresouce, course);
-
 			addToBag(courseresouce);
 		}
 
@@ -116,8 +100,7 @@ public class Modeling {
 			courseresouce.addProperty(
 					VCARD.N,
 					model.createResource()
-							.addProperty(createProperty(Constant.RDF + "type"),
-									Constant.UNIVERSITY_URI)
+							.addProperty(RDF.type, Constant.UNIVERSITY_URI)
 							.addProperty(
 									createProperty(Constant.UNIVERSITY_URI
 											+ "id"),
@@ -137,10 +120,7 @@ public class Modeling {
 					.addProperty(
 							VCARD.N,
 							model.createResource()
-									.addProperty(
-											createProperty(Constant.RDF
-													+ "type"),
-											Constant.SESSION_URI)
+									.addProperty(RDF.type, Constant.SESSION_URI)
 									.addProperty(
 											createProperty(Constant.SESSION_URI
 													+ "id"),
@@ -159,8 +139,7 @@ public class Modeling {
 			courseresouce.addProperty(
 					VCARD.N,
 					model.createResource()
-							.addProperty(createProperty(Constant.RDF + "type"),
-									Constant.INSTRUCTOR_URI)
+							.addProperty(RDF.type, Constant.INSTRUCTOR_URI)
 							.addProperty(
 									createProperty(Constant.INSTRUCTOR_URI
 											+ "name"),
@@ -180,7 +159,6 @@ public class Modeling {
 	}
 
 	private void addToBag(Resource courseresource) {
-		// Resource resource = model.createResource(courseresource);
 
 		bag.add(courseresource);
 	}
