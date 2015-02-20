@@ -1,6 +1,8 @@
 package org.bihe.semantic.ui;
 
 import java.util.ArrayList;
+
+import org.bihe.semantic.SPARQLParser.OpenUniversitySPARQLParser;
 import org.bihe.semantic.jsonParser.CourseraJSonParser;
 import org.bihe.semantic.model.Course;
 
@@ -31,6 +33,15 @@ public class Search {
 			ArrayList<Course> courseraCourseDetails = coursera
 					.getCoursesByName(getName());
 			coursera.printList(courseraCourseDetails);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try{
+			System.out.print(getName());
+			OpenUniversitySPARQLParser ou = new OpenUniversitySPARQLParser();
+			ArrayList<Course> courseraCourseDetails = ou
+					.getCoursesByName(getName());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
