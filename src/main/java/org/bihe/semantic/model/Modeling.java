@@ -8,22 +8,22 @@ public class Modeling {
 
 	public static void main(String[] args) {
 
-//		Category category = new Category();
-//		category.setCategoryName("Cat name");
-//		category.setId(1);
-//		category.setShortname("Short cat name");
+		// Category category = new Category();
+		// category.setCategoryName("Cat name");
+		// category.setId(1);
+		// category.setShortname("Short cat name");
 
 		Course course = new Course();
 		course.setCourseName("Test Course");
 		course.setId(1);
 		course.setShortname("Short test name");
-		
-		Course[] courses = {course};
+
+		Course[] courses = { course };
 		Modeling modeling = new Modeling();
 		modeling.createModel(courses);
-		
+
 		modeling.writeModel();
-		
+
 	}
 
 	public void addStatement(String s, String p, String o) {
@@ -41,34 +41,38 @@ public class Modeling {
 		model.add(stmt);
 	}
 
+	Bag bag = model.createBag();
+
 	public void createModel(Course[] courses) {
 		model = ModelFactory.createDefaultModel();
 
-		Bag bag = model.createBag();
-
 		for (Course course : courses) {
-			String co = "http://www.coursera.org/course#";
-			String cath = "http://www.coursera.org/cathegory#";
-			String se = "http://www.coursera.org/session#";
-			String ins = "http://www.coursera.org/instructor#";
-			String uni = "http://www.coursera.org/university#";
-			// String nsRDFS= "http://www.w3.org/2000/01/rdf-schema#";
-			addStatement(co, co + "has", se);
-			addStatement(co, co + "taughtby", ins);
-			addStatement(co, co + "belongsto", cath);
-			addStatement(co, co + "taughtin", uni);
-			addStatement(co + course.getShortname(), co + "has", se);
 
-			addLiteralStatement(co + course.getShortname(), co + "name",
-					course.getCourseName());
-			addLiteralStatement(co + course.getShortname(), co + "id",
-					course.getId());
-			addLiteralStatement(co + course.getShortname(), co + "has",
-					course.getId());
-			
-//			bag.add()
+			// String nsRDFS= "http://www.w3.org/2000/01/rdf-schema#";
+			addStatement(Constant.COURSE_URI, Constant.COURSE_URI + "has",
+					Constant.SESSION_URI);
+			addStatement(Constant.COURSE_URI, Constant.COURSE_URI + "taughtby",
+					Constant.INSTRUCTOR_URI);
+			addStatement(Constant.COURSE_URI,
+					Constant.COURSE_URI + "belongsto", Constant.CATHEGORY_URI);
+			addStatement(Constant.COURSE_URI, Constant.COURSE_URI + "taughtin",
+					Constant.CATHEGORY_URI);
+
+			addLiteralStatement(Constant.COURSE_URI + course.getShortname(),
+					Constant.COURSE_URI + "name", course.getCourseName());
+			addLiteralStatement(Constant.COURSE_URI + course.getShortname(),
+					Constant.COURSE_URI + "id", course.getId());
+			addLiteralStatement(Constant.COURSE_URI + course.getShortname(),
+					Constant.COURSE_URI + "has", course.getId());
+			addToBag(Constant.COURSE_URI + course.getShortname());
 		}
 
+	}
+
+	private void addToBag(String courseresource) {
+		Resource resource = model.createResource(courseresource);
+
+		bag.add(resource);
 	}
 
 	public void writeModel() {
