@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.bihe.semantic.SPARQLParser.OpenUniversitySPARQLParser;
 import org.bihe.semantic.jsonParser.CourseraJSonParser;
 import org.bihe.semantic.model.Course;
+import org.bihe.semantic.utility.Utility;
 
 public class Search {
 	private String name;
@@ -28,20 +29,23 @@ public class Search {
 
 	public void getResults() {
 		// Pass the course that user wants to find it in Coursera
+
+		System.out.println(" Results on Coursera : ");
 		try {
 			CourseraJSonParser coursera = new CourseraJSonParser();
 			ArrayList<Course> courseraCourseDetails = coursera
 					.getCoursesByName(getName());
-			coursera.printList(courseraCourseDetails);
+			Utility.printList(courseraCourseDetails);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		try{
-			System.out.print(getName());
+		System.out.println(" Results on Open University : ");
+		try {
+			System.out.println(getName());
 			OpenUniversitySPARQLParser ou = new OpenUniversitySPARQLParser();
 			ArrayList<Course> courseraCourseDetails = ou
 					.getCoursesByName(getName());
-			
+			Utility.printList(courseraCourseDetails);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
