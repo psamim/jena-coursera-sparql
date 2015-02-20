@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.vocabulary.VCARD;
+
 /**
  * @author Shiva
  *
@@ -19,12 +20,36 @@ public class Modeling {
 		// category.setId(1);
 		// category.setShortname("Short cat name");
 
-		Course course = new Course();
-		course.setCourseName("Test Course");
-		course.setId(1);
-		course.setShortname("ShortTestName");
+		Course course1 = new Course();
+		course1.setCourseName("Test Course");
+		course1.setId(1);
+		course1.setShortname("ShortTestName");
+		Instructor instructor1 = new Instructor();
+		instructor1.setFirstname("hamid");
+		instructor1.setLastname("hoveydaye");
+		Instructor instructor2 = new Instructor();
+		instructor2.setFirstname("jalil");
+		instructor2.setLastname("sadeghi");
+		ArrayList<Instructor> instrcutors = new ArrayList<Instructor>();
+		instrcutors.add(instructor2);
+		instrcutors.add(instructor2);
+		course1.setInstructors(instrcutors);
 
-		Course[] courses = { course };
+		Course course2 = new Course();
+		course2.setCourseName("Final Course");
+		course2.setId(2);
+		course2.setShortname("FinalTestName");
+		Session session = new Session();
+		session.setId(234);
+		session.setHomepage("http:www.google.com");
+
+		ArrayList<Session> sessions = new ArrayList<Session>();
+		sessions.add(session);
+
+		course2.setSessions(sessions);
+		course1.setSessions(sessions);
+
+		Course[] courses = { course1, course2 };
 		Modeling modeling = new Modeling();
 		modeling.createModel(courses);
 
