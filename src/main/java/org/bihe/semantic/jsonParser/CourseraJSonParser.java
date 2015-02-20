@@ -109,7 +109,7 @@ public class CourseraJSonParser {
 
 	}
 
-	public ArrayList<Course> getCourseDetail(String courseName)
+	public ArrayList<Course> getCoursesByName(String courseName)
 			throws Exception {
 
 		ArrayList<Course> courseDetailLists = new ArrayList<Course>();
