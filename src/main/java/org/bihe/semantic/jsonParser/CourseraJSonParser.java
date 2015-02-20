@@ -56,7 +56,7 @@ public class CourseraJSonParser {
 	 * }
 	 */
 
-	public static void printList(ArrayList<Course> courseDetails) {
+	public void printList(ArrayList<Course> courseDetails) {
 		if (courseDetails.size() == 0) {
 			System.out.println("Nothing has been found in Coursera !");
 		}
@@ -109,7 +109,7 @@ public class CourseraJSonParser {
 
 	}
 
-	public static ArrayList<Course> getCourseDetail(String courseName)
+	public ArrayList<Course> getCourseDetail(String courseName)
 			throws Exception {
 
 		ArrayList<Course> courseDetailLists = new ArrayList<Course>();
