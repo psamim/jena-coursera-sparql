@@ -1,5 +1,8 @@
 package org.bihe.semantic.model;
-
+/**
+ * @author Shiva
+ *
+ */
 public class Session {
 	private long id;
 	private String homepage;

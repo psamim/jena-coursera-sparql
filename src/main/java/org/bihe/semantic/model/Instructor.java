@@ -1,5 +1,8 @@
 package org.bihe.semantic.model;
-
+/**
+ * @author Shiva
+ *
+ */
 public class Instructor {
 	private long id;
 	private String firstname;
