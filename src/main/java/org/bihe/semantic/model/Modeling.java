@@ -50,7 +50,9 @@ public class Modeling {
 		course2.setSessions(sessions);
 		course1.setSessions(sessions);
 
-		Course[] courses = { course1, course2 };
+		ArrayList<Course> courses = new ArrayList<>();
+		courses.add(course1);
+		courses.add(course2);
 		Modeling modeling = new Modeling();
 		modeling.createModel(courses);
 
@@ -65,7 +67,7 @@ public class Modeling {
 		model.add(stmt);
 	}
 
-	public void createModel(Course[] courses) {
+	public Model createModel(ArrayList<Course> courses) {
 		model = ModelFactory.createDefaultModel();
 		bag = model.createBag();
 
@@ -76,7 +78,7 @@ public class Modeling {
 			courseresouce = addLiteralProperties(courseresouce, course);
 			addToBag(courseresouce);
 		}
-
+		return model;
 	}
 
 	private Resource addLiteralProperties(Resource courseresouce, Course course) {
@@ -97,17 +99,22 @@ public class Modeling {
 	private Resource addUniversityProperty(ArrayList<University> universities,
 			Resource courseresouce) {
 		for (University university : universities) {
-			courseresouce.addProperty(
-					VCARD.N,
-					model.createResource()
-							.addProperty(RDF.type, Constant.UNIVERSITY_URI)
-							.addProperty(
-									createProperty(Constant.UNIVERSITY_URI
-											+ "id"),
-									Long.toString(university.getId())))
-					.addProperty(
-							createProperty(Constant.UNIVERSITY_URI + "name"),
-							university.getName());
+			if (university.getName() != null) {
+				courseresouce
+						.addProperty(
+								VCARD.N,
+								model.createResource()
+										.addProperty(RDF.type,
+												Constant.UNIVERSITY_URI)
+										.addProperty(
+												createProperty(Constant.UNIVERSITY_URI
+														+ "id"),
+												Long.toString(university
+														.getId())))
+						.addProperty(
+								createProperty(Constant.UNIVERSITY_URI + "name"),
+								university.getName());
+			}
 		}
 
 		return courseresouce;
@@ -165,5 +172,9 @@ public class Modeling {
 
 	public void writeModel() {
 		model.write(System.out, "TTL");
+	}
+
+	public Model getModel() {
+		return model;
 	}
 }
