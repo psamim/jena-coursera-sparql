@@ -7,7 +7,7 @@ current = url + "?name=" + query.name[0]
         <div class="panel-body">
             <h1 class="text-center">Search Results</h1>
             <p class="bg-success semantic-messages">
-                See the results graph in
+                See the graph in
                 <a href="${current}&type=TTL">TTL</a>
                 or
                 <a href="${current}&type=">XML</a>
@@ -28,7 +28,9 @@ current = url + "?name=" + query.name[0]
                                 ${row_index + 1}
                             </td>
                             <td>
-                                ${row.courseName}
+                                <a href="${row.sessions[0].homepage}">
+                                    ${row.courseName}
+                                </a>
                             </td>
                             <td>
                                 <#list row.instructors as person>
