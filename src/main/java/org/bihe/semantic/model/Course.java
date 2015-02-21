@@ -1,11 +1,12 @@
 package org.bihe.semantic.model;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * @author Mozhde
  *
  */
-public class Course {
+public class Course implements Serializable {
 	private long id;
 	private String shortname;
 	private String courseName;
