@@ -50,6 +50,38 @@ public class CourseraJSonParser {
 	 * 
 	 * }
 	 */
+	public ArrayList<CourseInfo> getCoursesByInstructor(String instructorName) {
+		ArrayList<CourseInfo> courseDetailLists = new ArrayList<CourseInfo>();
+
+		// //////////instructors/////////////////////////////
+		for (int i = 0; i < instructorLists.size(); i++) {
+			if ((instructorLists.get(i).getFirstname().toLowerCase() + " " + instructorLists
+					.get(i).getLastname().toLowerCase())
+					.contains(instructorName.toLowerCase())) {
+
+				Instructor curr_instructors = instructorLists.get(i);
+				CourseInfo courseDetail = new CourseInfo();
+
+				if (curr_instructors != null)
+					for (int crslist = 0; crslist < courseLists.size(); crslist++) {
+						if (courseLists.get(crslist).getInstructors() != null)
+							for (int ins = 0; ins < courseLists.get(crslist)
+									.getInstructors().size(); ins++) {
+
+								if (courseLists.get(crslist).getInstructors()
+										.get(ins) == curr_instructors.getId()) {
+									courseDetail = courseLists.get(crslist);
+									courseDetailLists.add(courseDetail);
+
+								}
+							}
+					}
+			}
+		}
+		return courseDetailLists;
+
+	}
+
 	public ArrayList<Course> getCoursesByName(String courseName)
 			throws Exception {
 
@@ -65,7 +97,7 @@ public class CourseraJSonParser {
 				courseDetail.setCourseName(courseLists.get(i).getCourseName());
 				courseDetail.setShortname(courseLists.get(i).getShortName());
 				courseDetail.setOrigin(1);
-				
+
 				// ///////// Categories/////////////////////////////////
 				ArrayList<Long> curr_categories = courseLists.get(i)
 						.getCategories();

@@ -1,14 +1,20 @@
 package org.bihe.semantic.ui;
 
 import static spark.Spark.*;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.bihe.semantic.jsonParser.CourseraJSonParser;
 import org.bihe.semantic.model.Course;
+import org.bihe.semantic.model.CourseInfo;
 import org.bihe.semantic.model.Modeling;
+
 import com.google.common.xml.XmlEscapers;
 import com.hp.hpl.jena.rdf.model.Model;
+
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
@@ -17,6 +23,7 @@ public class Main {
 	public static final String TEMPLATE = "template.ftl";
 
 	public static void main(String[] args) {
+
 		staticFileLocation("/public"); // Static files
 
 		get("/search", (rq, rs) -> {
@@ -49,7 +56,19 @@ public class Main {
 					attributes.put("results", results);
 				}
 
+			// /////////////////get Course by Instructor ///////////
+			CourseraJSonParser cj = new CourseraJSonParser();
+			String instructorName = "Hossam Haick";
+			ArrayList<CourseInfo> cinfo = cj
+					.getCoursesByInstructor(instructorName);
+			for (int i = 0; i < cinfo.size(); i++) {
+				System.out.println("Results from Coursera for " + instructorName
+						+ " : " + cinfo.get(i).getCourseName());
+			}
+			// ////////////////////////////////////////////////////////
+
 				return new ModelAndView(attributes, TEMPLATE);
+
 			}, new FreeMarkerEngine());
 
 		get("/about", (rq, rs) -> {
