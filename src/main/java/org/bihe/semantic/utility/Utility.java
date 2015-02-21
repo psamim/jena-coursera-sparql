@@ -16,7 +16,8 @@ public class Utility {
 	 */
 	public static void printList(ArrayList<Course> courseDetails) {
 		if (courseDetails.size() == 0) {
-			System.out.println("Nothing has been found in Coursera !");
+			System.out.println("Nothing has been found!");
+			return;
 		}
 		for (int i = 0; i < courseDetails.size(); i++) {
 			System.out.println("CourseId: " + courseDetails.get(i).getId());
