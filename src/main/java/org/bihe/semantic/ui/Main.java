@@ -1,18 +1,14 @@
 package org.bihe.semantic.ui;
 
 import static spark.Spark.*;
-
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.bihe.semantic.model.Course;
 import org.bihe.semantic.model.Modeling;
-
 import com.google.common.xml.XmlEscapers;
 import com.hp.hpl.jena.rdf.model.Model;
-
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
@@ -43,9 +39,9 @@ public class Main {
 
 					ArrayList<Course> courses = search.getResults();
 
-					if (search.getType().equals("table")) {
+					if (search.getType().equals("table")) { // Show in a table
 						attributes.put("results", courses);
-					} else {
+					} else { // Or as XML and TTL
 						Model model = new Modeling().createModel(courses);
 						ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 						model.write(outputStream, search.getType());
