@@ -1,5 +1,6 @@
 <h1>Search Courses</h1>
 <form class="form-horizontal" action="results" method="get">
+    <input type="hidden" class="form-control" id="input3" name="type" value="table">
     <div class="form-group">
         <label for="input3" class="col-sm-2 control-label">Course Name</label>
         <div class="col-sm-8">
