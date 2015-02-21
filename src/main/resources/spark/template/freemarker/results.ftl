@@ -42,7 +42,7 @@ current = url + "?name=" + query.name[0]
                                 </#list>
                             </td>
                             <td>
-                                <img src="img/ou.jpg" />
+                                <img src="img/${row.origin}.png" />
                                 <#list row.universities as uni>
                                     ${uni.shortName}
                                     <#if uni_has_next>,</#if>
