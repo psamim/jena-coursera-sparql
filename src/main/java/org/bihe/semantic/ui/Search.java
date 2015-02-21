@@ -1,16 +1,19 @@
 package org.bihe.semantic.ui;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import org.bihe.semantic.SPARQLParser.OpenUniversitySPARQLParser;
 import org.bihe.semantic.jsonParser.CourseraJSonParser;
 import org.bihe.semantic.model.Course;
 import org.bihe.semantic.model.Modeling;
 import org.bihe.semantic.utility.Utility;
+import com.google.common.xml.XmlEscapers;
 import com.hp.hpl.jena.rdf.model.Model;
 
 public class Search {
 	private String name;
 	private String category;
+	private String type;
 
 	public String getName() {
 		return name;
@@ -28,10 +31,10 @@ public class Search {
 		this.category = category;
 	}
 
-	public void getResults() {
+	public String getResults() {
 		// Pass the course that user wants to find it in Coursera
-		System.out.println(" Results on Coursera : ");
 		try {
+			System.out.println(" Results on Coursera : ");
 			CourseraJSonParser coursera = new CourseraJSonParser();
 			ArrayList<Course> courseraCourseDetails = coursera
 					.getCoursesByName(getName());
@@ -41,14 +44,32 @@ public class Search {
 			OpenUniversitySPARQLParser ou = new OpenUniversitySPARQLParser();
 			ArrayList<Course> ouCourseDetails = ou.getCoursesByName(getName());
 			Utility.printList(ouCourseDetails);
-			
+
 			@SuppressWarnings("unchecked")
-			ArrayList<Course> courses = (ArrayList<Course>) courseraCourseDetails.clone();
+			ArrayList<Course> courses = (ArrayList<Course>) courseraCourseDetails
+					.clone();
 			courses.addAll(ouCourseDetails);
 			Model model = new Modeling().createModel(courses);
-			model.write(System.out, "TTL");
+
+			if (!getType().equals("table")) {
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				model.write(outputStream, getType());
+				return XmlEscapers.xmlContentEscaper().escape(
+						outputStream.toString());
+			} else {
+
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }
