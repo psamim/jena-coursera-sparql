@@ -1,21 +1,17 @@
-<h1>Search Courses</h1>
-<form class="form-horizontal" action="results" method="get">
-    <input type="hidden" class="form-control" id="input3" name="type" value="table">
-    <div class="form-group">
-        <label for="input3" class="col-sm-2 control-label">Course Name</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="input3" name="name">
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel-body text-center">
+            <h1 >Search Courses</h1>
+            <form class="form-inline" action="results" method="get">
+                <input type="hidden" name="type" value="table">
+                <div class="form-group form-group-lg">
+                    <div class="input-group">
+                        <div class="input-group-addon">By name:</div>
+                        <input type="text" class="form-control" id="input3" name="name">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">Go</button>
+            </form>
         </div>
     </div>
-    <div class="form-group">
-        <label for="input4" class="col-sm-2 control-label">Category</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="input4" name="category">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-8">
-            <button type="submit" class="btn btn-default">Search</button>
-        </div>
-    </div>
-</form>
+</div>
