@@ -10,6 +10,7 @@ public class Course implements Serializable {
 	private long id;
 	private String shortname;
 	private String courseName;
+	private int origin; // 1:Coursera  --- 2:Open University
 	private ArrayList<Instructor> instructors= new ArrayList<Instructor>();
 	private ArrayList<Category> categories = new ArrayList<Category>();
 	private ArrayList<Session> sessions = new ArrayList<Session>();
@@ -20,6 +21,14 @@ public class Course implements Serializable {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	
+	public int getOrigin() {
+		return origin;
+	}
+	public void setOrigin(int origin) {
+		this.origin = origin;
 	}
 	public String getShortname() {
 		return shortname;

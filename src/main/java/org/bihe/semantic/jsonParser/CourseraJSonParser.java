@@ -64,7 +64,8 @@ public class CourseraJSonParser {
 				courseDetail.setId(courseLists.get(i).getCourseId());
 				courseDetail.setCourseName(courseLists.get(i).getCourseName());
 				courseDetail.setShortname(courseLists.get(i).getShortName());
-
+				courseDetail.setOrigin(1);
+				
 				// ///////// Categories/////////////////////////////////
 				ArrayList<Long> curr_categories = courseLists.get(i)
 						.getCategories();

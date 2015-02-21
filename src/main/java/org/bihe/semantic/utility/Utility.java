@@ -25,6 +25,8 @@ public class Utility {
 					+ courseDetails.get(i).getCourseName());
 			System.out.println("ShortName: "
 					+ courseDetails.get(i).getShortname());
+			String origin= courseDetails.get(i).getOrigin()==1 ? "Coursera" : "Open University";
+			System.out.println("Origin: " + origin);
 
 			System.out.print("Categories: ");
 			ArrayList<Category> c = courseDetails.get(i).getCategories();

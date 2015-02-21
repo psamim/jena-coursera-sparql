@@ -116,6 +116,7 @@ public class OpenUniversitySPARQLParser {
 					 universitiesName.add(university);
 					 crs.setUniversities(universitiesName);
 				 }
+				 crs.setOrigin(2);
 				 courseDetailLists.add(crs);
 			 }
 		 } catch (Exception e) {
