@@ -21,6 +21,7 @@ current = url + "?name=" + query.name[0]
                         <th>#</th>
                         <th>Name</th>
                         <th>Instructors</th>
+                        <th>University</th>
                     </tr>
                     <#list results as row>
                         <tr>
@@ -28,7 +29,7 @@ current = url + "?name=" + query.name[0]
                                 ${row_index + 1}
                             </td>
                             <td>
-                                <a href="${row.sessions[0].homepage}">
+                                <a href="${row.sessions[0].homepage}" target="_blank">
                                     ${row.courseName}
                                 </a>
                             </td>
@@ -38,6 +39,12 @@ current = url + "?name=" + query.name[0]
                                         ${person.firstname} ${person.lastname}
                                     </a>
                                     <#if person_has_next>,</#if>
+                                </#list>
+                            </td>
+                            <td>
+                                <#list row.universities as uni>
+                                    ${uni.shortName}
+                                    <#if uni_has_next>,</#if>
                                 </#list>
                             </td>
                         </tr>
