@@ -1,14 +1,22 @@
 package org.bihe.semantic.ui;
 
 import static spark.Spark.*;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.bihe.semantic.jsonParser.CourseraJSonParser;
 import org.bihe.semantic.model.Course;
+import org.bihe.semantic.model.CourseInfo;
 import org.bihe.semantic.model.Modeling;
+
+import org.bihe.semantic.utility.Utility;
+
 import com.google.common.xml.XmlEscapers;
 import com.hp.hpl.jena.rdf.model.Model;
+
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
@@ -21,12 +29,12 @@ public class Main {
 	public static void main(String[] args) {
             ipAddress(IP_ADDRESS);
 	    port(PORT);
-		staticFileLocation("/public"); // Static files
+            staticFileLocation("/public"); // Static files
 
-		get("/search", (rq, rs) -> {
-			Map<String, Object> attributes = new HashMap<>();
-			attributes.put("page", "search");
-			return new ModelAndView(attributes, TEMPLATE);
+            get("/search", (rq, rs) -> {
+                    Map<String, Object> attributes = new HashMap<>();
+                    attributes.put("page", "search");
+                    return new ModelAndView(attributes, TEMPLATE);
 		}, new FreeMarkerEngine());
 
 		get("/results", (rq, rs) -> {
@@ -53,7 +61,24 @@ public class Main {
 					attributes.put("results", results);
 				}
 
+				// /////////////////get Course by Instructor ///////////
+				CourseraJSonParser cj = new CourseraJSonParser();
+				String instructorName = "william";
+				ArrayList<Course> c = cj.getCoursesByInstructor(instructorName);
+				System.out
+						.println("********************************************************");
+				System.out.println("Results on Coursera for : "
+						+ instructorName);
+				System.out
+						.println("*********************************************************");
+				Utility.printList(c);
+				System.out
+						.println("*********************************************************");
+
+				// ////////////////////////////////////////////////////////
+
 				return new ModelAndView(attributes, TEMPLATE);
+
 			}, new FreeMarkerEngine());
 
 		get("/about", (rq, rs) -> {
