@@ -42,7 +42,11 @@ current = url + "?name=" + query.name[0]
                                 </#list>
                             </td>
                             <td>
-                                <img src="img/${row.origin}.png" />
+                                <#if row.origin == 1>
+                                    <img src="img/${row.origin}.png" title="Coursera" />
+                                <#else>
+                                    <img src="img/${row.origin}.png" title="OpenUniversity" />
+                                </#if>
                                 <#list row.universities as uni>
                                     ${uni.shortName}
                                     <#if uni_has_next>,</#if>
