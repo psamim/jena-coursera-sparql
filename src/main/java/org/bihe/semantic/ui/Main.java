@@ -1,9 +1,18 @@
 package org.bihe.semantic.ui;
 
 import static spark.Spark.*;
+
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import org.bihe.semantic.utility.Utility;
+
+import org.bihe.semantic.model.Course;
+import org.bihe.semantic.model.Modeling;
+
+import com.google.common.xml.XmlEscapers;
+import com.hp.hpl.jena.rdf.model.Model;
+
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
@@ -20,19 +29,32 @@ public class Main {
 			return new ModelAndView(attributes, TEMPLATE);
 		}, new FreeMarkerEngine());
 
-		get("/results", (rq, rs) -> {
-			Search search = new Search();
-			search.setCategory(rq.queryParams("category"));
-			search.setName(rq.queryParams("name"));
-			search.setType(rq.queryParams("type"));
+		get("/results",
+				(rq, rs) -> {
+					Search search = new Search();
+					search.setCategory(rq.queryParams("category"));
+					search.setName(rq.queryParams("name"));
+					search.setType(rq.queryParams("type"));
 
-			Map<String, Object> attributes = new HashMap<>();
-			attributes.put("page", "results");
-			attributes.put("url", rq.url());
-			attributes.put("query", rq.queryMap().toMap());
-			attributes.put("results", search.getResults());
+					Map<String, Object> attributes = new HashMap<>();
+					attributes.put("page", "results");
+					attributes.put("url", rq.url());
+					attributes.put("query", rq.queryMap().toMap());
 
-			return new ModelAndView(attributes, TEMPLATE);
-		}, new FreeMarkerEngine());
+					ArrayList<Course> courses = search.getResults();
+
+					if (search.getType().equals("table")) {
+						attributes.put("results", courses);
+					} else {
+						Model model = new Modeling().createModel(courses);
+						ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+						model.write(outputStream, search.getType());
+						String results = XmlEscapers.xmlContentEscaper()
+								.escape(outputStream.toString());
+						attributes.put("results", results);
+					}
+
+					return new ModelAndView(attributes, TEMPLATE);
+				}, new FreeMarkerEngine());
 	}
 }

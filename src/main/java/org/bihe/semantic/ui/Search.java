@@ -31,7 +31,7 @@ public class Search {
 		this.category = category;
 	}
 
-	public String getResults() {
+	public ArrayList<Course> getResults() {
 		// Pass the course that user wants to find it in Coursera
 		try {
 			System.out.println(" Results on Coursera : ");
@@ -49,16 +49,7 @@ public class Search {
 			ArrayList<Course> courses = (ArrayList<Course>) courseraCourseDetails
 					.clone();
 			courses.addAll(ouCourseDetails);
-			Model model = new Modeling().createModel(courses);
-
-			if (!getType().equals("table")) {
-				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-				model.write(outputStream, getType());
-				return XmlEscapers.xmlContentEscaper().escape(
-						outputStream.toString());
-			} else {
-
-			}
+			return courses;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
