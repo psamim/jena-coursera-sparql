@@ -15,8 +15,12 @@ import spark.template.freemarker.FreeMarkerEngine;
 public class Main {
 	// HTML template in src/main/resources/spark/template/freemarker
 	public static final String TEMPLATE = "template.ftl";
+    private static final String IP_ADDRESS = System.getenv("OPENSHIFT_DIY_IP") != null ? System.getenv("OPENSHIFT_DIY_IP") : "localhost";
+    private static final int PORT = System.getenv("OPENSHIFT_DIY_PORT") != null ? Integer.parseInt(System.getenv("OPENSHIFT_DIY_PORT")) : 4567;
 
 	public static void main(String[] args) {
+            ipAddress(IP_ADDRESS);
+	    port(PORT);
 		staticFileLocation("/public"); // Static files
 
 		get("/search", (rq, rs) -> {
