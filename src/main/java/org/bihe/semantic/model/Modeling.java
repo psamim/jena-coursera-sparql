@@ -83,10 +83,12 @@ public class Modeling {
 
 	private Resource addLiteralProperties(Resource courseresouce, Course course) {
 
-		courseresouce = model.createResource(
-				Constant.COURSE_URI + course.getShortname()).addProperty(
-				createProperty(Constant.COURSE_URI + "name"),
-				course.getCourseName());
+		courseresouce = model
+				.createResource(Constant.COURSE_URI + course.getShortname())
+				.addProperty(createProperty(Constant.COURSE_URI + "name"),
+						course.getCourseName())
+				.addProperty(createProperty(Constant.ORIGIN_URI),
+						findOrigin(course.getOrigin()));
 		courseresouce = addInstrcutorsProperty(course.getInstructors(),
 				courseresouce);
 		courseresouce = addSessionProperty(course.getSessions(), courseresouce);
@@ -94,6 +96,16 @@ public class Modeling {
 				courseresouce);
 		addToModel(courseresouce, Constant.COURSE_URI + "id", course.getId());
 		return courseresouce;
+	}
+
+	private String findOrigin(int origin) {
+		String courseorigin;
+		if (origin == 1) {
+			courseorigin = "Coursera";
+		} else {
+			courseorigin = "Open University";
+		}
+		return courseorigin;
 	}
 
 	private Resource addUniversityProperty(ArrayList<University> universities,
