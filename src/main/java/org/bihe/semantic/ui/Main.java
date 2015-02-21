@@ -12,6 +12,8 @@ import org.bihe.semantic.model.Course;
 import org.bihe.semantic.model.CourseInfo;
 import org.bihe.semantic.model.Modeling;
 
+import org.bihe.semantic.utility.Utility;
+
 import com.google.common.xml.XmlEscapers;
 import com.hp.hpl.jena.rdf.model.Model;
 
@@ -56,16 +58,21 @@ public class Main {
 					attributes.put("results", results);
 				}
 
-			// /////////////////get Course by Instructor ///////////
-			CourseraJSonParser cj = new CourseraJSonParser();
-			String instructorName = "Hossam Haick";
-			ArrayList<CourseInfo> cinfo = cj
-					.getCoursesByInstructor(instructorName);
-			for (int i = 0; i < cinfo.size(); i++) {
-				System.out.println("Results from Coursera for " + instructorName
-						+ " : " + cinfo.get(i).getCourseName());
-			}
-			// ////////////////////////////////////////////////////////
+				// /////////////////get Course by Instructor ///////////
+				CourseraJSonParser cj = new CourseraJSonParser();
+				String instructorName = "william";
+				ArrayList<Course> c = cj.getCoursesByInstructor(instructorName);
+				System.out
+						.println("********************************************************");
+				System.out.println("Results on Coursera for : "
+						+ instructorName);
+				System.out
+						.println("*********************************************************");
+				Utility.printList(c);
+				System.out
+						.println("*********************************************************");
+
+				// ////////////////////////////////////////////////////////
 
 				return new ModelAndView(attributes, TEMPLATE);
 

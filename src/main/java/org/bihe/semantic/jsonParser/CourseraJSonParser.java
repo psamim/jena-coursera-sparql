@@ -3,6 +3,7 @@ package org.bihe.semantic.jsonParser;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+
 import org.bihe.semantic.model.Category;
 import org.bihe.semantic.model.Course;
 import org.bihe.semantic.model.CourseInfo;
@@ -50,8 +51,8 @@ public class CourseraJSonParser {
 	 * 
 	 * }
 	 */
-	public ArrayList<CourseInfo> getCoursesByInstructor(String instructorName) {
-		ArrayList<CourseInfo> courseDetailLists = new ArrayList<CourseInfo>();
+	public ArrayList<Course> getCoursesByInstructor(String instructorName) {
+		ArrayList<Course> courseDetailLists = new ArrayList<Course>();
 
 		// //////////instructors/////////////////////////////
 		for (int i = 0; i < instructorLists.size(); i++) {
@@ -60,22 +61,32 @@ public class CourseraJSonParser {
 					.contains(instructorName.toLowerCase())) {
 
 				Instructor curr_instructors = instructorLists.get(i);
-				CourseInfo courseDetail = new CourseInfo();
+				Course courseDetail = new Course();
 
-				if (curr_instructors != null)
-					for (int crslist = 0; crslist < courseLists.size(); crslist++) {
-						if (courseLists.get(crslist).getInstructors() != null)
-							for (int ins = 0; ins < courseLists.get(crslist)
-									.getInstructors().size(); ins++) {
+				try {
+					if (curr_instructors != null) {
+						for (int crslist = 0; crslist < courseLists.size(); crslist++) {
+							if (courseLists.get(crslist).getInstructors() != null)
+								for (int ins = 0; ins < courseLists
+										.get(crslist).getInstructors().size(); ins++) {
 
-								if (courseLists.get(crslist).getInstructors()
-										.get(ins) == curr_instructors.getId()) {
-									courseDetail = courseLists.get(crslist);
-									courseDetailLists.add(courseDetail);
+									if (courseLists.get(crslist)
+											.getInstructors().get(ins) == curr_instructors
+											.getId()) {
 
+										courseDetail = getCourseByID(courseLists
+												.get(crslist).getCourseId());
+
+										courseDetailLists.add(courseDetail);
+
+									}
 								}
-							}
+						}
 					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		return courseDetailLists;
@@ -175,6 +186,95 @@ public class CourseraJSonParser {
 		}
 
 		return courseDetailLists;
+	}
+
+	public Course getCourseByID(Long courseID) throws Exception {
+
+		Course courseDetail = new Course();
+
+		for (int i = 0; i < courseLists.size(); i++) {
+			if (courseLists.get(i).getCourseId() == courseID) {
+				courseDetail.setId(courseLists.get(i).getCourseId());
+				courseDetail.setCourseName(courseLists.get(i).getCourseName());
+				courseDetail.setShortname(courseLists.get(i).getShortName());
+				courseDetail.setOrigin(1);
+
+				// ///////// Categories/////////////////////////////////
+				ArrayList<Long> curr_categories = courseLists.get(i)
+						.getCategories();
+				ArrayList<Category> categoriesName = new ArrayList<Category>();
+
+				if (curr_categories != null)
+					for (int cat = 0; cat < (int) curr_categories.size(); cat++) {
+						for (int catlist = 0; catlist < categoryLists.size(); catlist++) {
+							if (categoryLists.get(catlist).getId() == curr_categories
+									.get(cat)) {
+								categoriesName.add(categoryLists.get(catlist));
+							}
+						}
+					}
+				courseDetail.setCategories(categoriesName);
+
+				// //////////Universities/////////////////////////////
+				ArrayList<Long> curr_universities = courseLists.get(i)
+						.getUniversities();
+				ArrayList<University> universitiesName = new ArrayList<University>();
+
+				if (curr_universities != null)
+					for (int uni = 0; uni < (int) curr_universities.size(); uni++) {
+						for (int unilist = 0; unilist < universityLists.size(); unilist++) {
+							if (universityLists.get(unilist).getId() == curr_universities
+									.get(uni)) {
+								universitiesName.add(universityLists
+										.get(unilist));
+							}
+						}
+
+					}
+				courseDetail.setUniversities(universitiesName);
+
+				// //////////instructors/////////////////////////////
+				ArrayList<Long> curr_instructors = courseLists.get(i)
+						.getInstructors();
+				ArrayList<Instructor> instructorsName = new ArrayList<Instructor>();
+
+				if (curr_instructors != null)
+					for (int ins = 0; ins < (int) curr_instructors.size(); ins++) {
+						for (int inslist = 0; inslist < instructorLists.size(); inslist++) {
+							if (instructorLists.get(inslist).getId() == curr_instructors
+									.get(ins)) {
+								instructorsName.add(instructorLists
+										.get(inslist));
+							}
+						}
+
+					}
+				courseDetail.setInstructors(instructorsName);
+
+				// //////////sessions/////////////////////////////
+				ArrayList<Long> curr_sessions = courseLists.get(i)
+						.getSessions();
+				ArrayList<Session> sessionsName = new ArrayList<Session>();
+
+				if (curr_sessions != null)
+					for (int se = 0; se < (int) curr_sessions.size(); se++) {
+						for (int selist = 0; selist < sessionLists.size(); selist++) {
+							if (sessionLists.get(selist).getId() == curr_sessions
+									.get(se)) {
+								sessionsName.add(sessionLists.get(selist));
+							}
+						}
+
+					}
+				courseDetail.setSessions(sessionsName);
+
+				return courseDetail;
+
+			}
+
+		}
+
+		return courseDetail;
 	}
 
 	public ArrayList<CourseInfo> readCourseInfo() throws Exception {
