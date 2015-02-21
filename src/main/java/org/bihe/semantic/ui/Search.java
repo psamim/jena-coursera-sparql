@@ -1,14 +1,10 @@
 package org.bihe.semantic.ui;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import org.bihe.semantic.SPARQLParser.OpenUniversitySPARQLParser;
 import org.bihe.semantic.jsonParser.CourseraJSonParser;
 import org.bihe.semantic.model.Course;
-import org.bihe.semantic.model.Modeling;
 import org.bihe.semantic.utility.Utility;
-import com.google.common.xml.XmlEscapers;
-import com.hp.hpl.jena.rdf.model.Model;
 
 public class Search {
 	private String name;
