@@ -25,32 +25,37 @@ public class Main {
 			return new ModelAndView(attributes, TEMPLATE);
 		}, new FreeMarkerEngine());
 
-		get("/results",
-				(rq, rs) -> {
-					Search search = new Search();
-					search.setCategory(rq.queryParams("category"));
-					search.setName(rq.queryParams("name"));
-					search.setType(rq.queryParams("type"));
+		get("/results", (rq, rs) -> {
+			Search search = new Search();
+			search.setCategory(rq.queryParams("category"));
+			search.setName(rq.queryParams("name"));
+			search.setType(rq.queryParams("type"));
 
-					Map<String, Object> attributes = new HashMap<>();
-					attributes.put("page", "results");
-					attributes.put("url", rq.url());
-					attributes.put("query", rq.queryMap().toMap());
+			Map<String, Object> attributes = new HashMap<>();
+			attributes.put("page", "results");
+			attributes.put("url", rq.url());
+			attributes.put("query", rq.queryMap().toMap());
 
-					ArrayList<Course> courses = search.getResults();
+			ArrayList<Course> courses = search.getResults();
 
-					if (search.getType().equals("table")) { // Show in a table
-						attributes.put("results", courses);
-					} else { // Or as XML and TTL
-						Model model = new Modeling().createModel(courses);
-						ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-						model.write(outputStream, search.getType());
-						String results = XmlEscapers.xmlContentEscaper()
-								.escape(outputStream.toString());
-						attributes.put("results", results);
-					}
+			if (search.getType().equals("table")) { // Show in a table
+					attributes.put("results", courses);
+				} else { // Or as XML and TTL
+					Model model = new Modeling().createModel(courses);
+					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+					model.write(outputStream, search.getType());
+					String results = XmlEscapers.xmlContentEscaper().escape(
+							outputStream.toString());
+					attributes.put("results", results);
+				}
 
-					return new ModelAndView(attributes, TEMPLATE);
-				}, new FreeMarkerEngine());
+				return new ModelAndView(attributes, TEMPLATE);
+			}, new FreeMarkerEngine());
+
+		get("/about", (rq, rs) -> {
+			Map<String, Object> attributes = new HashMap<>();
+			attributes.put("page", "about");
+			return new ModelAndView(attributes, TEMPLATE);
+		}, new FreeMarkerEngine());
 	}
 }

@@ -51,6 +51,8 @@
       <div class="starter-template">
         <#if page == "results">
           <#include "results.ftl">
+        <#elseif page == "about">
+          <#include "about.ftl">
         <#else>
           <#include "main.ftl">
         </#if>  
