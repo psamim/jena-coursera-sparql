@@ -1,7 +1,9 @@
 package org.bihe.semantic.model;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+import com.google.common.xml.XmlEscapers;
 import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.VCARD;
@@ -188,5 +190,13 @@ public class Modeling {
 
 	public Model getModel() {
 		return model;
+	}
+
+	public String getInFormat(String type) {
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		model.write(outputStream, type);
+		String results = XmlEscapers.xmlContentEscaper().escape(
+				outputStream.toString());
+		return results;
 	}
 }

@@ -1,18 +1,12 @@
 package org.bihe.semantic.SPARQLParser;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.bihe.semantic.model.Category;
 import org.bihe.semantic.model.Course;
 import org.bihe.semantic.model.CourseInfo;
 import org.bihe.semantic.model.Instructor;
 import org.bihe.semantic.model.Session;
 import org.bihe.semantic.model.University;
-
-import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -47,8 +41,7 @@ public class OpenUniversitySPARQLParser {
 		}
 	}
 	
-	public ArrayList<Course> getCoursesByName(String courseName)
-			throws Exception {
+	public ArrayList<Course> getCoursesByName(String courseName) {
 		logger.trace("Entering application.");
 		
 		ArrayList<Course> courseDetailLists = new ArrayList<Course>();

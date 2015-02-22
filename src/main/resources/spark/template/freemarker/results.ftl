@@ -1,6 +1,9 @@
-<#assign
-current = url + "?name=" + query.name[0]
->  
+<#if query.name??>
+    <#assign current = url + "?name=" + query.name[0] >  
+</#if>
+<#if query.instructor??>
+    <#assign current = url + "?instructor=" + query.instructor[0] >  
+</#if>
 
 <div class="row">
     <div class="col-md-12">
@@ -14,7 +17,6 @@ current = url + "?name=" + query.name[0]
                 format, or in a
                 <a href="${current}&type=table">table</a>.
             </p>
-
             <#if query.type[0] == "table">
                 <table class="table table-hover">
                     <tr>
@@ -35,7 +37,7 @@ current = url + "?name=" + query.name[0]
                             </td>
                             <td>
                                 <#list row.instructors as person>
-                                    <a href="">
+                                    <a href="${url}?type=table&instructor=${person.lastname}">
                                         ${person.firstname} ${person.lastname}
                                     </a>
                                     <#if person_has_next>,</#if>

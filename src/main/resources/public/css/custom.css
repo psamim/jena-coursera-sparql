@@ -13,3 +13,6 @@ pre {
 .table>tbody>tr>td {
     vertical-align: middle;
 }
+.semantic-form {
+    padding-bottom: 15px; 
+}

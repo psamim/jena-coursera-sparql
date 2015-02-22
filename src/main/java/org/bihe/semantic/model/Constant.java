@@ -9,5 +9,5 @@ public class Constant {
 	public static final String INSTRUCTOR_URI = "http://www.coursera.org/instructor#";
 	public static final String UNIVERSITY_URI = "http://www.coursera.org/university#";
 	public static final String SESSION_URI = "http://www.coursera.org/session#";
-	public static final String ORIGIN_URI = "http://www.courseorigin.org/#";
+	public static final String ORIGIN_URI = "http://www.coursera.org/origin";
 }

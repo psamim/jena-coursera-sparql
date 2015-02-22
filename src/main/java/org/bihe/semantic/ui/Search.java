@@ -10,6 +10,7 @@ public class Search {
 	private String name;
 	private String category;
 	private String type;
+	private String instructor;
 
 	public String getName() {
 		return name;
@@ -28,28 +29,26 @@ public class Search {
 	}
 
 	public ArrayList<Course> getResults() {
-		// Pass the course that user wants to find it in Coursera
-		try {
-			System.out.println(" Results on Coursera : ");
-			CourseraJSonParser coursera = new CourseraJSonParser();
-			ArrayList<Course> courseraCourseDetails = coursera
-					.getCoursesByName(getName());
-			Utility.printList(courseraCourseDetails);
+		CourseraJSonParser coursera = new CourseraJSonParser();
+		OpenUniversitySPARQLParser ou = new OpenUniversitySPARQLParser();
+		ArrayList<Course> courseraCourses = new ArrayList<>();
+		ArrayList<Course> ouCourses = new ArrayList<>();
 
-			System.out.println(" Results on Open University : ");
-			OpenUniversitySPARQLParser ou = new OpenUniversitySPARQLParser();
-			ArrayList<Course> ouCourseDetails = ou.getCoursesByName(getName());
-			Utility.printList(ouCourseDetails);
-
-			@SuppressWarnings("unchecked")
-			ArrayList<Course> courses = (ArrayList<Course>) courseraCourseDetails
-					.clone();
-			courses.addAll(ouCourseDetails);
-			return courses;
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (getInstructor() != null) { // By Instructor
+			courseraCourses = coursera.getCoursesByInstructor(getInstructor());
+		} else if (getName() != null) { // By name
+			courseraCourses = coursera.getCoursesByName(getName());
+			ouCourses = ou.getCoursesByName(getName());
 		}
-		return null;
+
+		System.out.println("Results on Coursera:");
+		Utility.printList(courseraCourses);
+
+		System.out.println("Results on Open University:");
+		Utility.printList(ouCourses);
+
+		courseraCourses.addAll(ouCourses);
+		return courseraCourses;
 	}
 
 	public String getType() {
@@ -58,5 +57,13 @@ public class Search {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getInstructor() {
+		return instructor;
+	}
+
+	public void setInstructor(String instructor) {
+		this.instructor = instructor;
 	}
 }

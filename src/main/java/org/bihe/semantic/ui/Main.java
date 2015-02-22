@@ -9,13 +9,12 @@ import java.util.Map;
 
 import org.bihe.semantic.jsonParser.CourseraJSonParser;
 import org.bihe.semantic.model.Course;
-import org.bihe.semantic.model.CourseInfo;
 import org.bihe.semantic.model.Modeling;
-
 import org.bihe.semantic.utility.Utility;
 
 import com.google.common.xml.XmlEscapers;
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.impl.ModelListenerAdapter;
 
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -23,18 +22,14 @@ import spark.template.freemarker.FreeMarkerEngine;
 public class Main {
 	// HTML template in src/main/resources/spark/template/freemarker
 	public static final String TEMPLATE = "template.ftl";
-    private static final String IP_ADDRESS = System.getenv("OPENSHIFT_DIY_IP") != null ? System.getenv("OPENSHIFT_DIY_IP") : "localhost";
-    private static final int PORT = System.getenv("OPENSHIFT_DIY_PORT") != null ? Integer.parseInt(System.getenv("OPENSHIFT_DIY_PORT")) : 4567;
 
 	public static void main(String[] args) {
-            ipAddress(IP_ADDRESS);
-	    port(PORT);
-            staticFileLocation("/public"); // Static files
+		staticFileLocation("/public"); // Static files
 
-            get("/search", (rq, rs) -> {
-                    Map<String, Object> attributes = new HashMap<>();
-                    attributes.put("page", "search");
-                    return new ModelAndView(attributes, TEMPLATE);
+		get("/search", (rq, rs) -> {
+			Map<String, Object> attributes = new HashMap<>();
+			attributes.put("page", "search");
+			return new ModelAndView(attributes, TEMPLATE);
 		}, new FreeMarkerEngine());
 
 		get("/results", (rq, rs) -> {
@@ -42,6 +37,7 @@ public class Main {
 			search.setCategory(rq.queryParams("category"));
 			search.setName(rq.queryParams("name"));
 			search.setType(rq.queryParams("type"));
+			search.setInstructor(rq.queryParams("instructor"));
 
 			Map<String, Object> attributes = new HashMap<>();
 			attributes.put("page", "results");
@@ -53,32 +49,13 @@ public class Main {
 			if (search.getType().equals("table")) { // Show in a table
 					attributes.put("results", courses);
 				} else { // Or as XML and TTL
-					Model model = new Modeling().createModel(courses);
-					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-					model.write(outputStream, search.getType());
-					String results = XmlEscapers.xmlContentEscaper().escape(
-							outputStream.toString());
+					Modeling modeling = new Modeling();
+					modeling.createModel(courses);
+					String results = modeling.getInFormat(search.getType());
 					attributes.put("results", results);
 				}
 
-				// /////////////////get Course by Instructor ///////////
-				CourseraJSonParser cj = new CourseraJSonParser();
-				String instructorName = "william";
-				ArrayList<Course> c = cj.getCoursesByInstructor(instructorName);
-				System.out
-						.println("********************************************************");
-				System.out.println("Results on Coursera for : "
-						+ instructorName);
-				System.out
-						.println("*********************************************************");
-				Utility.printList(c);
-				System.out
-						.println("*********************************************************");
-
-				// ////////////////////////////////////////////////////////
-
 				return new ModelAndView(attributes, TEMPLATE);
-
 			}, new FreeMarkerEngine());
 
 		get("/about", (rq, rs) -> {

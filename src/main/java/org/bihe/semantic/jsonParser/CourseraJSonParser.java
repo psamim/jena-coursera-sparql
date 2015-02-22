@@ -93,8 +93,7 @@ public class CourseraJSonParser {
 
 	}
 
-	public ArrayList<Course> getCoursesByName(String courseName)
-			throws Exception {
+	public ArrayList<Course> getCoursesByName(String courseName) {
 
 		ArrayList<Course> courseDetailLists = new ArrayList<Course>();
 
@@ -277,6 +276,7 @@ public class CourseraJSonParser {
 		return courseDetail;
 	}
 
+	@SuppressWarnings("unchecked")
 	public ArrayList<CourseInfo> readCourseInfo() throws Exception {
 
 		JSONParser parser = new JSONParser();
