@@ -39,8 +39,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/search">Search</a></li>
-            <li><a href="/about">About</a></li>
+            <li <#if page == "search">class="active"</#if>><a href="/search">Search</a></li>
+            <li <#if page == "about">class="active"</#if>><a href="/about">About</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
