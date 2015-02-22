@@ -13,7 +13,7 @@
                 See the graph in
                 <a href="${current}&type=TTL">TTL</a>
                 or
-                <a href="${current}&type=">XML</a>
+                <a href="${current}&type=">RDF-XML</a>
                 format, or in a
                 <a href="${current}&type=table">table</a>.
             </p>
