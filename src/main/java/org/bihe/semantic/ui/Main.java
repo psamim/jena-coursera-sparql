@@ -1,21 +1,11 @@
 package org.bihe.semantic.ui;
 
 import static spark.Spark.*;
-
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.bihe.semantic.jsonParser.CourseraJSonParser;
 import org.bihe.semantic.model.Course;
 import org.bihe.semantic.model.Modeling;
-import org.bihe.semantic.utility.Utility;
-
-import com.google.common.xml.XmlEscapers;
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.impl.ModelListenerAdapter;
-
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
