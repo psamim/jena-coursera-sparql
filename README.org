@@ -1,0 +1,19 @@
+* About
+This Web application lets users search for courses in Coursera and OpenUniversity using
+the Coursera API and OpenUniversity SPARQL end point. It presents the results in a table,
+or in RDF-XML and TTL graphs. This application uses Apache Jena for querying the 
+SPARQL end point and manipulating graph models.
+* Run
+The Main method is
+in the =org.bihe.semantic.ui.Main=. After running it you can view the application
+by visiting [[http://127.0.0.1:4567]] in the browser.
+
+The project uses Maven for managing dependencies. 
+It can be built by the following commands.
+
+#+BEGIN_SRC sh
+mvn clean install 
+java -jar target/semantic-project-0.0.1-SNAPSHOT.jar
+#+END_SRC
+* License
+This application is licensed under GNU General Public License, Version 3.0.
