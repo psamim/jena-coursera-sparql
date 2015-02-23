@@ -4,10 +4,13 @@
             <h1>Final Project</h1>
             <p> Rozita, Shiva, Mozhdeh and Samim </p>
             <p>
-                This Web application lets users search for courses in Coursera and OpenUniversity using
-                the Coursera API and OpenUniversity SPARQL end point. It presents the results in a table,
-                or in RDF-XML and TTL graphs. This application uses Apache Jena for querying the 
-                SPARQL end point and manipulating graph models.
+                This Web application lets users search for courses in Coursera and OpenUniversity by course name or 
+                instructor name using
+                the Coursera API and the OpenUniversity SPARQL endpoint. It presents the results in a table,
+                or as graph models on top of the designed ontology in RDF-XML or TTL formats.  The ontology 
+                consists of properties which are common in both OpenUniversity and Coursera.
+                The application uses Apache Jena for querying the 
+                SPARQL endpoint and manipulating graph models.
             </p>
             <p>
                 The application is licensed under
